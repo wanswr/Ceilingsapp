@@ -14,22 +14,26 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # Шаг 2: Устанавливаем Node.js
+    # Шаг 2: Проверка текущей директории (для отладки)
+    - name: Check current directory
+      run: pwd
+
+    # Шаг 3: Устанавливаем Node.js
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '16'  # или версия, соответствующая твоему проекту
 
-    # Шаг 3: Устанавливаем зависимости
+    # Шаг 4: Устанавливаем зависимости
     - name: Install dependencies
       run: |
         npm install -g expo-cli  # Устанавливаем Expo CLI
         npm install             # Устанавливаем зависимости проекта
 
-    # Шаг 4: Логинимся в Expo
+    # Шаг 5: Логинимся в Expo
     - name: Log in to Expo
       run: expo login --username ${{ secrets.EXPO_USERNAME }} --password ${{ secrets.EXPO_PASSWORD }}  # Используй секреты для логина в Expo
 
-    # Шаг 5: Запуск сборки
+    # Шаг 6: Запуск сборки
     - name: Build project
       run: expo build:android --non-interactive  # или expo build:ios, в зависимости от платформы
