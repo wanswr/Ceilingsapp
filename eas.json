@@ -12,10 +12,15 @@
       "distribution": "internal"
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "distribution": "store"  // Добавил параметр для отправки в магазин
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "platform": "android",  // Можно добавить платформу, если необходимо
+      "appStoreConnectApiKey": "./credentials/app-store-connect-api-key.json",  // Пример пути к API ключу для iOS
+      "googlePlayServiceAccountJsonPath": "./credentials/google-play-service-account.json"  // Пример пути к аккаунту для Android
+    }
   }
 }
