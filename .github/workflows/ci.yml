@@ -22,18 +22,27 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'  # или версия, соответствующая твоему проекту
+        node-version: '16'  # Убедитесь, что версия Node.js соответствует требованиям проекта
 
     # Шаг 4: Устанавливаем зависимости
     - name: Install dependencies
       run: |
-        npm install -g expo-cli  # Устанавливаем Expo CLI
+        npm install -g expo-cli  # Устанавливаем Expo CLI глобально
         npm install             # Устанавливаем зависимости проекта
 
-    # Шаг 5: Логинимся в Expo
+    # Шаг 5: Логинимся в Expo (используя секреты для логина)
     - name: Log in to Expo
-      run: expo login --username ${{ secrets.EXPO_USERNAME }} --password ${{ secrets.EXPO_PASSWORD }}  # Используй секреты для логина в Expo
+      run: expo login --username ${{ secrets.EXPO_USERNAME }} --password ${{ secrets.EXPO_PASSWORD }}
 
-    # Шаг 6: Запуск сборки
+    # Шаг 6: Запуск сборки проекта для Android (или для iOS)
     - name: Build project
-      run: expo build:android --non-interactive  # или expo build:ios, в зависимости от платформы
+      run: expo build:android --non-interactive  # Или используйте expo build:ios для iOS
+
+    # Шаг 7: Проверка состояния сборки (необязательно, но полезно для отладки)
+    - name: Check build status
+      run: |
+        if [ -f build/status.txt ]; then
+          cat build/status.txt
+        else
+          echo "No build status file found"
+        fi
