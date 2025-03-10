@@ -1,10 +1,7 @@
-name: CI/CD Pipeline
+name: CI for CeilingsApp
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
@@ -13,26 +10,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Шаг 1: Клонируем репозиторий
     - name: Checkout code
       uses: actions/checkout@v2
 
+    # Шаг 2: Устанавливаем Node.js
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'
+        node-version: '16'  # или версия, соответствующая твоему проекту
 
+    # Шаг 3: Устанавливаем зависимости
     - name: Install dependencies
       run: |
-        npm install
+        npm install -g expo-cli  # Устанавливаем Expo CLI
+        npm install             # Устанавливаем зависимости проекта
 
-    - name: Run tests
-      run: |
-        npm run test
+    # Шаг 4: Логинимся в Expo
+    - name: Log in to Expo
+      run: expo login --username ${{ secrets.EXPO_USERNAME }} --password ${{ secrets.EXPO_PASSWORD }}  # Используй секреты для логина в Expo
 
+    # Шаг 5: Запуск сборки
     - name: Build project
-      run: |
-        npm run build
-
-    - name: Deploy (optional step)
-      run: |
-        echo "Deploying..."
+      run: expo build:android --non-interactive  # или expo build:ios, в зависимости от платформы
