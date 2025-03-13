@@ -25,7 +25,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Expo 52 требует Node.js 18+
+          node-version: '18'
 
       # Шаг 4: Кэшируем зависимости (ускоряет повторные сборки)
       - name: Cache node_modules
@@ -47,9 +47,8 @@ jobs:
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: |
-          echo "Token: $EXPO_TOKEN"  # Для отладки, выводим токен
           if [ -n "$EXPO_TOKEN" ]; then
-            npx eas-cli whoami || echo "$EXPO_TOKEN" | npx eas-cli login --access-token
+            echo "$EXPO_TOKEN" | npx eas-cli login --access-token
           else
             echo "EXPO_TOKEN не установлен. Пропускаем логин."
           fi
