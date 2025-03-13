@@ -47,6 +47,7 @@ jobs:
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: |
+          echo "Token: $EXPO_TOKEN"  # Для отладки, выводим токен
           if [ -n "$EXPO_TOKEN" ]; then
             npx eas-cli whoami || echo "$EXPO_TOKEN" | npx eas-cli login --access-token
           else
@@ -62,10 +63,7 @@ jobs:
         run: eas build -p android --non-interactive
 
       # Шаг 9: Проверка состояния сборки (опционально)
-      - name: Check build status
+      - name: Check build logs
         run: |
-          if [ -f build/status.txt ]; then
-            cat build/status.txt
-          else
-            echo "No build status file found"
-          fi
+          echo "Просматриваем логи сборки:"
+          tail -n 20 /path/to/eas/build/logs.txt  # Если у вас есть путь к логам EAS
