@@ -4,45 +4,63 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    # Шаг 1: Клонируем репозиторий
-    - name: Checkout code
-      uses: actions/checkout@v2
+      # Шаг 1: Клонируем репозиторий
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # Шаг 2: Проверка текущей директории (для отладки)
-    - name: Check current directory
-      run: pwd
+      # Шаг 2: Проверяем текущую директорию (для отладки)
+      - name: Check current directory
+        run: pwd && ls -la
 
-    # Шаг 3: Устанавливаем Node.js
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'  # Убедитесь, что версия Node.js соответствует требованиям проекта
+      # Шаг 3: Устанавливаем Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Expo 52 требует Node.js 18+
 
-    # Шаг 4: Устанавливаем зависимости
-    - name: Install dependencies
-      run: |
-        npm install -g expo-cli  # Устанавливаем Expo CLI глобально
-        npm install             # Устанавливаем зависимости проекта
+      # Шаг 4: Кэшируем зависимости (ускоряет повторные сборки)
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-    # Шаг 5: Логинимся в Expo (используя секреты для логина)
-    - name: Log in to Expo
-      run: expo login --username ${{ secrets.EXPO_USERNAME }} --password ${{ secrets.EXPO_PASSWORD }}
+      # Шаг 5: Устанавливаем EAS CLI и зависимости проекта
+      - name: Install dependencies
+        run: |
+          npm install -g eas-cli
+          npm ci
 
-    # Шаг 6: Запуск сборки проекта для Android (или для iOS)
-    - name: Build project
-      run: expo build:android --non-interactive  # Или используйте expo build:ios для iOS
+      # Шаг 6: Логинимся в Expo (используем токен)
+      - name: Log in to Expo
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: eas login --token "$EXPO_TOKEN"
 
-    # Шаг 7: Проверка состояния сборки (необязательно, но полезно для отладки)
-    - name: Check build status
-      run: |
-        if [ -f build/status.txt ]; then
-          cat build/status.txt
-        else
-          echo "No build status file found"
-        fi
+      # Шаг 7: Проверяем проект (TypeScript, линтеры)
+      - name: Run TypeScript check
+        run: npx tsc --noEmit
+
+      # Шаг 8: Сборка проекта для Android с использованием EAS
+      - name: Build project (Android)
+        run: eas build -p android --non-interactive
+
+      # Шаг 9: Проверка состояния сборки (опционально)
+      - name: Check build status
+        run: |
+          if [ -f build/status.txt ]; then
+            cat build/status.txt
+          else
+            echo "No build status file found"
+          fi
