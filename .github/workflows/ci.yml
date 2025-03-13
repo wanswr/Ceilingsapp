@@ -42,11 +42,16 @@ jobs:
           npm install -g eas-cli
           npm ci
 
-      # Шаг 6: Логинимся в Expo (используем токен)
+      # Шаг 6: Логинимся в Expo (используя секреты для логина)
       - name: Log in to Expo
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: eas login --token "$EXPO_TOKEN"
+        run: |
+          if [ -n "$EXPO_TOKEN" ]; then
+            npx eas-cli whoami || echo "$EXPO_TOKEN" | npx eas-cli login --access-token
+          else
+            echo "EXPO_TOKEN не установлен. Пропускаем логин."
+          fi
 
       # Шаг 7: Проверяем проект (TypeScript, линтеры)
       - name: Run TypeScript check
