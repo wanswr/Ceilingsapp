@@ -1,0 +1,35 @@
+name: Build Android App
+
+on:
+  push:
+    branches:
+      - main  # или другая ветка, с которой вы хотите запускать сборку
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Или используйте другую платформу, например, macos-latest, если вам нужно
+
+    steps:
+    # Шаг 1: Клонируем репозиторий
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Шаг 2: Устанавливаем Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # Укажите нужную версию Node.js
+
+    # Шаг 3: Устанавливаем зависимости
+    - name: Install dependencies
+      run: |
+        npm install -g eas-cli
+        npm install
+
+    # Шаг 4: Входим в Expo с токеном (необходимо добавить EXPO_TOKEN как секрет в GitHub)
+    - name: Login to Expo using EXPO_TOKEN
+      run: eas login --token ${{ secrets.EXPO_TOKEN }}
+
+    # Шаг 5: Собираем Android
+    - name: Build Android app
+      run: eas build -p android --non-interactive
