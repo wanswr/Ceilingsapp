@@ -17,6 +17,9 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "platform": "android", // Указываем платформу (android или ios)
+      "googlePlayServiceAccountJsonPath": "./credentials/google-play-service-account.json" // Путь к JSON-аккаунту Google Play
+    }
   }
 }
