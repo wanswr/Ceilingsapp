@@ -6,14 +6,23 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_TOKEN": "your-expo-token-here" // замените на реальный токен или удалите
+      }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_TOKEN": "your-expo-token-here" // замените на реальный токен или удалите
+      }
     },
     "production": {
       "autoIncrement": true,
-      "distribution": "store"
+      "distribution": "store",
+      "env": {
+        "EXPO_TOKEN": "your-expo-token-here" // замените на реальный токен или удалите
+      }
     }
   }
 }
