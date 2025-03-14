@@ -49,9 +49,7 @@ jobs:
       - name: Log in to Expo
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # используем секрет EXPO_TOKEN
-        run: |
-          echo "Starting login process..."  # Логирование перед запуском
-          eas login --token $EXPO_TOKEN || echo "Login failed with token"  # Если не удается выполнить логин, будет выведено сообщение
+        run: eas credentials --token $EXPO_TOKEN  # команда для логина через токен
 
       # Шаг 7: Сборка проекта для Android
       - name: Build project (Android)
