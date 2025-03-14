@@ -44,11 +44,11 @@ jobs:
       - name: Verify EXPO_TOKEN
         run: echo "EXPO_TOKEN is: $EXPO_TOKEN"  # Это выведет значение EXPO_TOKEN в логи
 
-      # Шаг 6: Логинимся в Expo
+      # Шаг 6: Логинимся в Expo с использованием токена
       - name: Log in to Expo
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # используем секрет EXPO_TOKEN
-        run: eas login --token $EXPO_TOKEN
+        run: eas credentials --token $EXPO_TOKEN  # команда для аутентификации
 
       # Шаг 7: Сборка проекта для Android
       - name: Build project (Android)
