@@ -8,7 +8,7 @@ on:
   pull_request:
     branches:
       - dev  # Для PR в dev срабатывает процесс CI
-      - 
+      - main  # Для PR в main срабатывает процесс CI
 
 jobs:
   build:
@@ -40,11 +40,11 @@ jobs:
           npm install -g eas-cli
           npm ci
 
-     # Шаг 5: Логинимся в Expo
-- name: Log in to Expo
-  env:
-    EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # используем секрет EXPO_TOKEN
-  run: eas login --token $EXPO_TOKEN
+      # Шаг 5: Логинимся в Expo
+      - name: Log in to Expo
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # используем секрет EXPO_TOKEN
+        run: eas login --token $EXPO_TOKEN
 
       # Шаг 6: Сборка проекта для Android
       - name: Build project (Android)
