@@ -1,0 +1,137 @@
+[33mcommit f6ed6e9019a628898d8fbe08d333c7134982c317[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev[m[33m)[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Fri Mar 14 17:06:30 2025 +0300
+
+    Initial commit
+
+[33mcommit d916ad45b4644bb56ba94c1947ed1122b1ac34dc[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Thu Mar 13 18:12:25 2025 +0300
+
+    Исправлен логин в Expo с токеном
+
+[33mcommit 528807a933cdc345c28b28b35a82b8505984daf2[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Thu Mar 13 18:08:22 2025 +0300
+
+    Исправления в конфигурации CI для логина в Expo
+
+[33mcommit 3bbfa5c2148a2c38c3d7c43fc86fe196bf2e9b3e[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Thu Mar 13 17:58:15 2025 +0300
+
+    Добавлена настройка CI/CD с использованием EAS для сборки Android
+
+[33mcommit 3fe4b4a7ba989ceabf04ee07583e178841a45dee[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Thu Mar 13 17:53:38 2025 +0300
+
+    Fix Expo login and build process
+
+[33mcommit 7437a66ab815f418bbbd4885982152a7b4bcc622[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Thu Mar 13 17:50:08 2025 +0300
+
+    Add GitHub Actions CI for Expo build
+
+[33mcommit d73c89fbbcf9295497503b12d15dc372bf80f5b4[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Thu Mar 13 17:23:47 2025 +0300
+
+    Add GitHub Actions workflow for Expo build
+
+[33mcommit b73810569da05e6f1f3a0a8b95b126854c85830e[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Thu Mar 13 17:14:36 2025 +0300
+
+    Исправлен CI с использованием EAS
+
+[33mcommit 02f02f82380975aee447641c414f352f5963ddf3[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Thu Mar 13 17:06:00 2025 +0300
+
+    Исправлен pipeline для EAS build
+
+[33mcommit fedec82c773f632c5b6def648c254a17132566af[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Thu Mar 13 16:48:02 2025 +0300
+
+    Fix line endings
+
+[33mcommit 2da2e721283c3c7876e898a85edfdd4292e4bbb1[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Wed Mar 12 22:45:24 2025 +0300
+
+    Fix changes in app.json
+
+[33mcommit a871725dbfe8ef0fc3fd4c0e6badcd9efe0315b7[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Wed Mar 12 22:04:06 2025 +0300
+
+    Исправлен перевод строк (LF) в eas.json
+
+[33mcommit f8125ba4bf1d25b4eea58ac06d7beb1c542c718e[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Mon Mar 10 21:54:21 2025 +0300
+
+    Force add eas.json and .gitignore
+
+[33mcommit 26fa148bcf99f9dfb37ec3d025e51a5a251b9530[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Mon Mar 10 21:48:46 2025 +0300
+
+    Fix: update eas.json and other project settings
+
+[33mcommit ea6208e54d5b04e0b715c376584353bdf925bf84[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Mon Mar 10 21:42:04 2025 +0300
+
+    Изменения в файле eas.json
+
+[33mcommit 4f5d1e3cec173323cc139e961f7d84cd53f081b1[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Mon Mar 10 18:12:39 2025 +0300
+
+    Added eas.json configuration file
+
+[33mcommit 6b0a065362914292ee968808994c763228c842d4[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Mon Mar 10 17:58:54 2025 +0300
+
+    Добавлен файл package.json
+
+[33mcommit 64d39cc3a7d6308a555917765d938a498aa85467[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Mon Mar 10 17:52:39 2025 +0300
+
+    Добавлен файл package.json
+
+[33mcommit 22d9ac1f6db69545ae00147784e766b6cca7475b[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Mon Mar 10 17:49:03 2025 +0300
+
+    Добавлен файл package.json для Expo
+
+[33mcommit 0f415e73f97645e538bb8ec2d0e882df89c0334d[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Mon Mar 10 17:28:10 2025 +0300
+
+    Добавлен CI/CD pipeline для Expo
+
+[33mcommit 11f9b391c39bfb1a6fc6476b8baf71f8a633c6ea[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Mon Mar 10 17:03:37 2025 +0300
+
+    Исправлена ошибка в CI/CD pipeline: добавлены триггеры
+
+[33mcommit b3d0cba88cc53436a2276fea081e1ff28b155dbb[m
+Author: wanswr <wanswr3@gmail.com>
+Date:   Mon Mar 10 16:56:43 2025 +0300
+
+    Добавлен файл CI/CD pipeline
+
+[33mcommit 0f0371d7e7659c8853400ddd3bbf909fa6b2acde[m
+Author: wanswr <35581841+wanswr@users.noreply.github.com>
+Date:   Mon Mar 10 16:46:01 2025 +0300
+
+    Initial commit
