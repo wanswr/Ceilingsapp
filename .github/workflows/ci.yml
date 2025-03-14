@@ -32,8 +32,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # Шаг 4: Устанавливаем зависимости
-      - name: Install dependencies
+      # Шаг 4: Устанавливаем зависимости и EAS CLI
+      - name: Install dependencies and EAS CLI
         run: |
           npm install -g eas-cli
           npm ci
