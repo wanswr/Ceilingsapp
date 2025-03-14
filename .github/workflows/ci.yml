@@ -3,12 +3,12 @@ name: CI for CeilingsApp
 on:
   push:
     branches:
-      - dev  # Для ветки dev срабатывает каждый push
-      - main  # Для ветки main срабатывает каждый push
+      - dev
+      - main
   pull_request:
     branches:
-      - dev  # Для PR в dev срабатывает процесс CI
-      - main  # Для PR в main срабатывает процесс CI
+      - dev
+      - main
 
 jobs:
   build:
@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '18'
 
-      # Шаг 3: Кэшируем зависимости (ускоряет повторные сборки)
+      # Шаг 3: Кэшируем зависимости
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
@@ -42,17 +42,18 @@ jobs:
 
       # Шаг 5: Проверяем EXPO_TOKEN
       - name: Verify EXPO_TOKEN
-        run: |
-          echo "EXPO_TOKEN is: $EXPO_TOKEN"  # Это выведет значение EXPO_TOKEN в логи
+        run: echo "EXPO_TOKEN is: $EXPO_TOKEN"
 
       # Шаг 6: Логинимся в Expo с использованием токена
-      - name: Log in to Expo
+      - name: Log in to Expo with token
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # используем секрет EXPO_TOKEN
-        run: eas credentials --token $EXPO_TOKEN  # команда для логина через токен
+        run: |
+          echo "Logging in with Expo token..."
+          eas build --platform android --non-interactive --token $EXPO_TOKEN  # Пример использования токена в командной строке
 
       # Шаг 7: Сборка проекта для Android
       - name: Build project (Android)
         run: |
-          echo "Starting build..."  # Логирование перед сборкой
-          eas build -p android --non-interactive || echo "Build failed"  # Если сборка не удастся, будет выведено сообщение
+          echo "Starting build..."
+          eas build -p android --non-interactive || echo "Build failed"
