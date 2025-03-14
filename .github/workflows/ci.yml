@@ -37,8 +37,8 @@ jobs:
       # Шаг 4: Устанавливаем зависимости и EAS CLI
       - name: Install dependencies and EAS CLI
         run: |
-          npm install -g eas-cli
-          npm ci
+          npm install -g expo-cli
+          npm install
 
       # Шаг 5: Проверяем переменные окружения
       - name: Verify Expo credentials
@@ -53,7 +53,7 @@ jobs:
           EXPO_PASSWORD: ${{ secrets.EXPO_PASSWORD }}  # Секрет с паролем
         run: |
           echo "Logging in with Expo username and password..."
-          eas login --username $EXPO_USERNAME --password $EXPO_PASSWORD  # Логин с использованием имени и пароля
+          expo login --username $EXPO_USERNAME --password $EXPO_PASSWORD  # Логин с использованием имени и пароля
 
       # Шаг 7: Сборка проекта для Android
       - name: Build project (Android)
