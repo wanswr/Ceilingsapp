@@ -42,7 +42,7 @@ jobs:
 
       # Шаг 5: Проверяем EXPO_TOKEN
       - name: Verify EXPO_TOKEN
-        run: echo $EXPO_TOKEN  # Это выведет значение EXPO_TOKEN в логи
+        run: echo "EXPO_TOKEN is: $EXPO_TOKEN"  # Это выведет значение EXPO_TOKEN в логи
 
       # Шаг 6: Логинимся в Expo
       - name: Log in to Expo
