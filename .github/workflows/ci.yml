@@ -40,18 +40,20 @@ jobs:
           npm install -g eas-cli
           npm ci
 
-      # Шаг 5: Проверяем EXPO_TOKEN
-      - name: Verify EXPO_TOKEN
+      # Шаг 5: Проверяем переменные окружения
+      - name: Verify Expo credentials
         run: |
-          echo "EXPO_TOKEN is set"  # Токен не выводится, просто проверяем его установку
+          echo "EXPO_USERNAME is set"
+          echo "EXPO_PASSWORD is set"
 
-      # Шаг 6: Логинимся в Expo с использованием токена через credentials
-      - name: Log in to Expo with token (via credentials)
+      # Шаг 6: Логинимся в Expo с использованием имени пользователя и пароля
+      - name: Log in to Expo
         env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # используем секрет EXPO_TOKEN
+          EXPO_USERNAME: ${{ secrets.EXPO_USERNAME }}  # Секрет с именем пользователя
+          EXPO_PASSWORD: ${{ secrets.EXPO_PASSWORD }}  # Секрет с паролем
         run: |
-          echo "Logging in with Expo token via credentials..."
-          eas credentials --token $EXPO_TOKEN  # Логин с помощью команды credentials
+          echo "Logging in with Expo username and password..."
+          eas login --username $EXPO_USERNAME --password $EXPO_PASSWORD  # Логин с использованием имени и пароля
 
       # Шаг 7: Сборка проекта для Android
       - name: Build project (Android)
