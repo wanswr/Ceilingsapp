@@ -38,12 +38,12 @@ jobs:
           npm install -g eas-cli
           npm ci
 
-      # Шаг 5: Логинимся в Expo
-- name: Log in to Expo
-  env:
-    EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-  run: |
-    eas account:login --token $EXPO_TOKEN
+     # Шаг 5: Логинимся в Expo
+      - name: Log in to Expo
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          eas whoami || eas login --token $EXPO_TOKEN
 
       # Шаг 6: Сборка проекта для Android
       - name: Build project (Android)
