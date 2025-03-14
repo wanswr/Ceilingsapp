@@ -34,28 +34,32 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # Шаг 4: Устанавливаем зависимости и EAS CLI
+      # Шаг 4: Очистка кэша npm
+      - name: Clear npm cache
+        run: npm cache clean --force
+
+      # Шаг 5: Устанавливаем зависимости и EAS CLI
       - name: Install dependencies and EAS CLI
         run: |
-          npm install -g expo-cli
-          npm install
+          npm install -g eas-cli
+          npm ci
 
-      # Шаг 5: Проверяем переменные окружения
-      - name: Verify Expo credentials
+      # Шаг 6: Проверяем переменные окружения
+      - name: Print EXPO_USERNAME and EXPO_PASSWORD
         run: |
-          echo "EXPO_USERNAME is set"
-          echo "EXPO_PASSWORD is set"
+          echo "EXPO_USERNAME is: $EXPO_USERNAME"
+          echo "EXPO_PASSWORD is: $EXPO_PASSWORD"
 
-      # Шаг 6: Логинимся в Expo с использованием имени пользователя и пароля
+      # Шаг 7: Логинимся в Expo с использованием имени пользователя и пароля
       - name: Log in to Expo
         env:
           EXPO_USERNAME: ${{ secrets.EXPO_USERNAME }}  # Секрет с именем пользователя
           EXPO_PASSWORD: ${{ secrets.EXPO_PASSWORD }}  # Секрет с паролем
         run: |
           echo "Logging in with Expo username and password..."
-          expo login --username $EXPO_USERNAME --password $EXPO_PASSWORD  # Логин с использованием имени и пароля
+          eas login --username $EXPO_USERNAME --password $EXPO_PASSWORD  # Логин с использованием имени и пароля
 
-      # Шаг 7: Сборка проекта для Android
+      # Шаг 8: Сборка проекта для Android
       - name: Build project (Android)
         run: |
           echo "Starting build..."
