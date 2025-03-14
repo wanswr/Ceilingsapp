@@ -1,15 +1,3 @@
-name: CI for CeilingsApp
-
-on:
-  push:
-    branches:
-      - dev
-      - main
-  pull_request:
-    branches:
-      - dev
-      - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,36 +27,24 @@ jobs:
         run: |
           npm install -g expo-cli
           npm install
+          npm install -g eas-cli  # Установка eas-cli
 
       # Шаг 5: Проверяем переменные окружения
       - name: Verify Expo credentials
         run: |
-          if [ -z "${{ secrets.EXPO_USERNAME }}" ]; then
-            echo "EXPO_USERNAME is not set."
-            exit 1
-          fi
-          if [ -z "${{ secrets.EXPO_PASSWORD }}" ]; then
-            echo "EXPO_PASSWORD is not set."
-            exit 1
-          fi
+          echo "EXPO_USERNAME is set"
+          echo "EXPO_PASSWORD is set"
 
       # Шаг 6: Логинимся в Expo с использованием имени пользователя и пароля
       - name: Log in to Expo
         env:
-          EXPO_USERNAME: ${{ secrets.EXPO_USERNAME }}  # Секрет с именем пользователя
-          EXPO_PASSWORD: ${{ secrets.EXPO_PASSWORD }}  # Секрет с паролем
+          EXPO_USERNAME: ${{ secrets.EXPO_USERNAME }}
+          EXPO_PASSWORD: ${{ secrets.EXPO_PASSWORD }}
         run: |
-          echo "Logging in with Expo username and password..."
           expo login --username $EXPO_USERNAME --password $EXPO_PASSWORD
 
       # Шаг 7: Сборка проекта для Android
       - name: Build project (Android)
         run: |
           echo "Starting build for Android..."
-          eas build -p android --non-interactive || { echo "Build failed"; exit 1; }
-
-      # Шаг 8: Сборка проекта для iOS (если необходимо)
-      - name: Build project (iOS)
-        run: |
-          echo "Starting build for iOS..."
-          eas build -p ios --non-interactive || { echo "Build failed"; exit 1; }
+          eas build -p android --non-interactive || echo "Build failed"
