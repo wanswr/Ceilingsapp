@@ -43,8 +43,14 @@ jobs:
       # Шаг 5: Проверяем переменные окружения
       - name: Verify Expo credentials
         run: |
-          echo "EXPO_USERNAME is set"
-          echo "EXPO_PASSWORD is set"
+          if [ -z "${{ secrets.EXPO_USERNAME }}" ]; then
+            echo "EXPO_USERNAME is not set."
+            exit 1
+          fi
+          if [ -z "${{ secrets.EXPO_PASSWORD }}" ]; then
+            echo "EXPO_PASSWORD is not set."
+            exit 1
+          fi
 
       # Шаг 6: Логинимся в Expo с использованием имени пользователя и пароля
       - name: Log in to Expo
@@ -53,10 +59,16 @@ jobs:
           EXPO_PASSWORD: ${{ secrets.EXPO_PASSWORD }}  # Секрет с паролем
         run: |
           echo "Logging in with Expo username and password..."
-          expo login --username $EXPO_USERNAME --password $EXPO_PASSWORD  # Логин с использованием имени и пароля
+          expo login --username $EXPO_USERNAME --password $EXPO_PASSWORD
 
       # Шаг 7: Сборка проекта для Android
       - name: Build project (Android)
         run: |
-          echo "Starting build..."
-          eas build -p android --non-interactive || echo "Build failed"
+          echo "Starting build for Android..."
+          eas build -p android --non-interactive || { echo "Build failed"; exit 1; }
+
+      # Шаг 8: Сборка проекта для iOS (если необходимо)
+      - name: Build project (iOS)
+        run: |
+          echo "Starting build for iOS..."
+          eas build -p ios --non-interactive || { echo "Build failed"; exit 1; }
