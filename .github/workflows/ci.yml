@@ -42,51 +42,6 @@ jobs:
           npm install -g eas-cli
           npm ci
 
-     # Шаг 6: Логинимся в Expo (используя секреты для логина)
-      - name: Log in to Exponame: CI for CeilingsApp
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      # Шаг 1: Клонируем репозиторий
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Шаг 2: Проверяем текущую директорию (для отладки)
-      - name: Check current directory
-        run: pwd && ls -la
-
-      # Шаг 3: Устанавливаем Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      # Шаг 4: Кэшируем зависимости (ускоряет повторные сборки)
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      # Шаг 5: Устанавливаем EAS CLI и зависимости проекта
-      - name: Install dependencies
-        run: |
-          npm install -g eas-cli
-          npm ci
-
       # Шаг 6: Логинимся в Expo с использованием логина и пароля
       - name: Log in to Expo
         env:
@@ -108,7 +63,6 @@ jobs:
         run: |
           echo "Просматриваем логи сборки:"
           tail -n 20 /path/to/eas/build/logs.txt  # Если у вас есть путь к логам EAS
-
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: |
@@ -117,16 +71,3 @@ jobs:
           else
             echo "EXPO_TOKEN не установлен. Пропускаем логин."
           fi
-      # Шаг 7: Проверяем проект (TypeScript, линтеры)
-      - name: Run TypeScript check
-        run: npx tsc --noEmit
-
-      # Шаг 8: Сборка проекта для Android с использованием EAS
-      - name: Build project (Android)
-        run: eas build -p android --non-interactive
-
-      # Шаг 9: Проверка состояния сборки (опционально)
-      - name: Check build logs
-        run: |
-          echo "Просматриваем логи сборки:"
-          tail -n 20 /path/to/eas/build/logs.txt  # Если у вас есть путь к логам EAS
