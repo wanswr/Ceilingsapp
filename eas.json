@@ -8,20 +8,17 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_TOKEN": "fxg-jSRMiXT5nnVjc1N1qkClrwceMUXBtrsgjdKe" // замените на реальный токен или удалите
       }
     },
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_TOKEN": "fxg-jSRMiXT5nnVjc1N1qkClrwceMUXBtrsgjdKe" // замените на реальный токен или удалите
       }
     },
     "production": {
       "autoIncrement": true,
       "distribution": "store",
       "env": {
-        "EXPO_TOKEN": "fxg-jSRMiXT5nnVjc1N1qkClrwceMUXBtrsgjdKe" // замените на реальный токен или удалите
       }
     }
   }
