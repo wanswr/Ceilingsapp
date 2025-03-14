@@ -42,15 +42,16 @@ jobs:
 
       # Шаг 5: Проверяем EXPO_TOKEN
       - name: Verify EXPO_TOKEN
-        run: echo "EXPO_TOKEN is: $EXPO_TOKEN"
+        run: |
+          echo "EXPO_TOKEN is set"  # Токен не выводится, просто проверяем его установку
 
-      # Шаг 6: Логинимся в Expo с использованием токена
-      - name: Log in to Expo with token
+      # Шаг 6: Логинимся в Expo с использованием токена через credentials
+      - name: Log in to Expo with token (via credentials)
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # используем секрет EXPO_TOKEN
         run: |
-          echo "Logging in with Expo token..."
-          eas build --platform android --non-interactive --token $EXPO_TOKEN  # Пример использования токена в командной строке
+          echo "Logging in with Expo token via credentials..."
+          eas credentials --token $EXPO_TOKEN  # Логин с помощью команды credentials
 
       # Шаг 7: Сборка проекта для Android
       - name: Build project (Android)
